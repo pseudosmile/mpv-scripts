@@ -1,5 +1,5 @@
 # MPV Media Player Scripts
-A Collection of scripts I've made for the mpv media player.
+A Collection of scripts I've made for the MPV Media Player.
 
 # SponsorBlock Local
 Skips all segments specified in the script settings from the embedded SponsorBlock chapters created by yt-dlp.
