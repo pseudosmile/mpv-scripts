@@ -16,16 +16,16 @@ local category_to_full = {
     ["filler"] = "Filler"
 }
 
-local ad_table = {}
-local ad_table_count = 0
+local seg_table = {}
+local seg_table_count = 0
 
 function skip_segments(name, pos)
 
-    if pos == nil or ad_table_count == 0 then return end
+    if pos == nil or seg_table_count == 0 then return end
 
-    for i = 1, ad_table_count do
-        seg_start = ad_table[i][1]
-        seg_end = ad_table[i][2]
+    for i = 1, seg_table_count do
+        seg_start = seg_table[i][1]
+        seg_end = seg_table[i][2]
 
         if pos >= seg_start and pos < seg_end then
             mp.set_property("time-pos", seg_end)
@@ -39,8 +39,8 @@ function file_loaded()
     chapter_list = mp.get_property_native("chapter-list")
     chapter_list_count = #chapter_list
 
-    ad_table = {}
-    ad_table_count = 0
+    seg_table = {}
+    seg_table_count = 0
 
     start_defined = false
     range_start = 0
@@ -65,8 +65,8 @@ function file_loaded()
             end
         else
             if start_defined then
-                ad_table[ad_table_count+1] = {range_start, chapter_time}
-                ad_table_count = ad_table_count + 1
+                seg_table[seg_table_count+1] = {range_start, chapter_time}
+                seg_table_count = seg_table_count + 1
     
                 range_start = 0
                 start_defined = false
@@ -74,8 +74,8 @@ function file_loaded()
         end
 
         if i == chapter_list_count and start_defined then
-            ad_table[ad_table_count+1] = {range_start, mp.get_property_native("duration")}
-            ad_table_count = ad_table_count + 1
+            seg_table[seg_table_count+1] = {range_start, mp.get_property_native("duration")}
+            seg_table_count = seg_table_count + 1
     
             range_start = 0
             start_defined = false
