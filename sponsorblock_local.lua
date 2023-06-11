@@ -1,11 +1,10 @@
 local script_enabled = true
-local skip_categories = "sponsor,selfpromo,interaction,intro,filler"
+local skip_categories = "sponsor,selfpromo,interaction,intro,filler,preview"
 
 
 --DO NOT EDIT ANYTHING BELOW THIS LINE, UNLESS YOU KNOW WHAT YOU ARE DOING!
 
-local valid_categories = "sponsor,selfpromo,interaction,intro,outro,preview,music_offtopic,filler"
-local category_to_full = {
+local sponsorblock_categories = {
     ["sponsor"] = "Sponsor",
     ["selfpromo"] = "Unpaid/Self Promotion",
     ["interaction"] = "Interaction Reminder",
@@ -52,7 +51,7 @@ function file_loaded()
         should_skip = false
 
         for category in string.gmatch(skip_categories, "([^,]+)") do
-            if chapter_title:match("%[SponsorBlock]: "..category_to_full[category]) then
+            if chapter_title:match("%[SponsorBlock]: "..sponsorblock_categories[category]) then
                 should_skip = true
                 break
             end
@@ -91,8 +90,8 @@ if script_enabled then
         for category in string.gmatch(skip_categories, "([^,]+)") do
             validcategoryfound = false
             
-            for valid_category in string.gmatch(valid_categories, "([^,]+)") do
-                if category == valid_category then
+            for valid_category in pairs(sponsorblock_categories) do
+                if valid_category == category then
                     validcategoryfound = true
                     break
                 end
