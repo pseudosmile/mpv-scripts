@@ -18,7 +18,7 @@ local sponsorblock_categories = {
 local seg_table = {}
 local seg_table_count = 0
 
-function skip_segments(name, pos)
+local function skip_segments(name, pos)
 
     if pos == nil or seg_table_count == 0 then return end
 
@@ -33,7 +33,7 @@ function skip_segments(name, pos)
     
 end
 
-function file_loaded()
+local function file_loaded()
 
     chapter_list = mp.get_property_native("chapter-list")
     chapter_list_count = #chapter_list
